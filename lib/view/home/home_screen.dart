@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:physiohelp_app/view/auth/login_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../options/job_screen.dart';
 import '../options/treat_screen.dart';
 
@@ -15,6 +17,16 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.teal[400],
         centerTitle: true,
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, size: 30,color: Colors.white,),
+            onPressed: () {
+              // Logout user
+              FirebaseAuth.instance.signOut();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
+          ),
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -55,6 +67,8 @@ class HomeScreen extends StatelessWidget {
                 Icons.work,
                 JobScreen(),
               ),
+              const SizedBox(height: 50,),
+              _buildFacebookIcon(),
             ],
           ),
         ),
@@ -90,6 +104,31 @@ class HomeScreen extends StatelessWidget {
           MaterialPageRoute(builder: (context) => screen),
         );
       },
+    );
+  }
+
+  // Facebook icon at the bottom
+  Widget _buildFacebookIcon() {
+    return Column(
+      children: [
+        const Text("Visit us on Facebook", style: TextStyle(color: Colors.white, fontSize: 25,fontWeight: FontWeight.bold)),
+        IconButton(
+          icon: const Icon(Icons.facebook, size: 50, color: Colors.blue),
+          onPressed: () async {
+            const url = 'https://www.facebook.com/profile.php?id=61563038982377&mibextid=ZbWKwL'; // Replace with your Facebook page URL
+            final Uri uri = Uri.parse(url);
+
+            if (await canLaunchUrl(uri)) {
+              await launchUrl(uri,
+                mode: LaunchMode.externalApplication,
+
+              );
+            } else {
+              throw 'Could not launch $url';
+            }
+          },
+        ),
+      ],
     );
   }
 }

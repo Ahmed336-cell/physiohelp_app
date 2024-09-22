@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "484840267912",
+    "project_id": "physiohelp-e4912",
+    "storage_bucket": "physiohelp-e4912.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484840267912:android:6a4f1f545fdd0cb1bf3f3d",
+        "android_client_info": {
+          "package_name": "com.elm.physiohelp_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf1eQ5vKQGBNNoyDzWpOivDIBsPNj-TEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

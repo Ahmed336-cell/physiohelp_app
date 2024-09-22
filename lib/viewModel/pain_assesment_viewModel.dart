@@ -1,25 +1,12 @@
-import 'package:flutter/foundation.dart';
-import '../model/patient.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PainAssessmentViewModel with ChangeNotifier {
-  Patient? patient;
-  List<Map<String, String>> exercises = [];
-
-  // Function to assess the patient's condition
-  void assessPatientCondition(Patient patient) {
-    this.patient = patient;
-
-    // Determine whether to show exercises or recommend a doctor visit
-    if (patient.painDuration == "Acute") {
-      provideExercises(patient.painLocation);
-    } else if (patient.painDuration == "Chronic") {
-      notifyDoctorVisit();
-    }
-  }
+class PainAssessmentCubit extends Cubit<List<Map<String, String>>> {
+  PainAssessmentCubit() : super([]);
 
   // Function to provide specific exercises based on pain location
   void provideExercises(String painLocation) {
-    exercises = [];
+    List<Map<String, String>> exercises = [];
+
     switch (painLocation) {
       case "Back":
         exercises = [
@@ -67,13 +54,13 @@ class PainAssessmentViewModel with ChangeNotifier {
         break;
     // Add more cases for other locations if needed
     }
-    notifyListeners();
+
+    // Emit the list of exercises
+    emit(exercises);
   }
 
-  // Notify for chronic pain
   void notifyDoctorVisit() {
-    // Logic to show a message
+    emit([]);
     print("Please visit a doctor for chronic pain.");
-    notifyListeners();
   }
 }
